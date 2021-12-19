@@ -1,6 +1,6 @@
-FROM oryd/kratos:latest
+FROM oryd/kratos:v0.5.5
 
-WORKDIR /
+WORKDIR /root
 COPY . .
 USER root
 

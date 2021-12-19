@@ -21,10 +21,10 @@ fi
 ##################################################
 # generate kratos config file                    #
 ##################################################
-cp kratos-without-dsn.yml kratos.yml
-echo "dsn: ${DSN}" >> "kratos.yml"
+cp kratos-without-dsn.yml .kratos.yaml
+echo "dsn: ${DSN}" >> ".kratos.yaml"
 
 ##################################################
 # run kratos                                     #
 ##################################################
-kratos serve -c kratos.yml
+kratos serve

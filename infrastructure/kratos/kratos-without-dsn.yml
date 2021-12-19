@@ -1,4 +1,4 @@
-version: v0.8.1-alpha.1
+version: v0.5.5
 
 serve:
   public:
@@ -59,7 +59,7 @@ log:
 
 
 identity:
-  default_schema_url: file:///identity.schema.json
+  default_schema_url: file:///root/identity.schema.json
 
 courier:
   smtp:
