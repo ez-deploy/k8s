@@ -52,6 +52,14 @@ selfservice:
             -
               hook: session
 
+hashers:
+  argon2:
+    iterations: 3
+    parallelism: 24
+    salt_length: 16
+    key_length: 32
+    memory: 131072
+
 log:
   level: debug
   format: text

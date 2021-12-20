@@ -31,7 +31,7 @@ spec:
     spec:
       containers:
       - name: kratos
-        image: ezdeploy/kratos:v0.4
+        image: ezdeploy/kratos:v0.6
         env:
         - name: MYSQL_HOST
           value: mysql
