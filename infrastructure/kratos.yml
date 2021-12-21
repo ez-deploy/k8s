@@ -7,7 +7,10 @@ metadata:
     name: kratos
 spec:
   ports:
-    - port: 3306
+    - port: 4433
+      name: public
+    - port: 4434
+      name: private
   selector:
     name: kratos
   clusterIP: None

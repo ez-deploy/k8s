@@ -1,0 +1,62 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: identity-configmap
+  namespace: infrastructure
+data:
+  identityCfg.yaml: |
+    kratos_public_hostname: "kratos:4433"
+    identity_dsn: "root:123456@tcp(mysql:3306)/identity?max_conns=20&max_idle_conns=4"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: identity
+  namespace: infrastructure
+  labels:
+    name: identity
+spec:
+  ports:
+    - port: 80
+  selector:
+    name: identity
+  clusterIP: None
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: identity
+  namespace: infrastructure
+  labels:
+    name: identity
+spec:
+  selector:
+    matchLabels:
+      name: identity
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        name: identity
+    spec:
+      containers:
+      - name: identity
+        image: ezdeploy/identity:v0.2
+        ports:
+        - name: service
+          containerPort: 80
+        resources:
+          limits:
+            cpu: 100m
+            memory: 128Mi
+        volumeMounts:
+        - name: identity-config
+          mountPath: "/etc/config"
+          readOnly: true
+      volumes:
+      - name: identity-config
+        configMap:
+          name: identity-configmap
+          items:
+          - key: identityCfg.yaml
+            path: identityCfg.yaml
