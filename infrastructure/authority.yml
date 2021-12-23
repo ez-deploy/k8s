@@ -1,0 +1,63 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: authority-configmap
+  namespace: infrastructure
+data:
+  authorityCfg.yaml: |
+    dsn: "root:123456@tcp(mysql:3306)/authority"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: authority
+  namespace: infrastructure
+  labels:
+    name: authority
+spec:
+  ports:
+    - port: 80
+      name: service
+  selector:
+    name: authority
+  clusterIP: None
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: authority
+  namespace: infrastructure
+  labels:
+    name: authority
+spec:
+  selector:
+    matchLabels:
+      name: authority
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        name: authority
+    spec:
+      containers:
+      - name: authority
+        image: ezdeploy/authority:v0.3
+        ports:
+        - name: service
+          containerPort: 80
+        resources:
+          limits:
+            cpu: 200m
+            memory: 2048Mi
+        volumeMounts:
+        - name: authority-config
+          mountPath: "/authorityCfg.yaml"
+          subPath: authorityCfg.yaml
+          readOnly: true
+      volumes:
+      - name: authority-config
+        configMap:
+          name: authority-configmap
+          items:
+          - key: authorityCfg.yaml
+            path: authorityCfg.yaml

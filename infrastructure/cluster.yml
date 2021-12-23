@@ -7,10 +7,8 @@ metadata:
     name: cluster
 spec:
   ports:
-    - port: 4433
-      name: public
-    - port: 4434
-      name: private
+    - port: 80
+      name: service
   selector:
     name: cluster
   clusterIP: None
