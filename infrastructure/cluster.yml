@@ -1,0 +1,44 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: cluster
+  namespace: infrastructure
+  labels:
+    name: cluster
+spec:
+  ports:
+    - port: 4433
+      name: public
+    - port: 4434
+      name: private
+  selector:
+    name: cluster
+  clusterIP: None
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cluster
+  namespace: infrastructure
+  labels:
+    name: cluster
+spec:
+  selector:
+    matchLabels:
+      name: cluster
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        name: cluster
+    spec:
+      containers:
+      - name: cluster
+        image: ezdeploy/cluster:v0.2
+        ports:
+        - name: service
+          containerPort: 80
+        resources:
+          limits:
+            cpu: 200m
+            memory: 2048Mi
