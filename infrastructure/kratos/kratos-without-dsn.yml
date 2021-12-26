@@ -26,14 +26,10 @@ selfservice:
       privileged_session_max_age: 15m
 
     recovery:
-      enabled: true
-      ui_url: http://localhost:4455/recovery
+      enabled: false
 
     verification:
-      enabled: true
-      ui_url: http://localhost:4455/verification
-      after:
-        default_browser_return_url: http://localhost:4455/
+      enabled: false
 
     logout:
       after:

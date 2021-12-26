@@ -41,7 +41,7 @@ spec:
     spec:
       containers:
       - name: identity
-        image: ezdeploy/identity:v0.2
+        image: ezdeploy/identity:v0.5
         ports:
         - name: service
           containerPort: 80
@@ -51,7 +51,8 @@ spec:
             memory: 128Mi
         volumeMounts:
         - name: identity-config
-          mountPath: "/etc/config"
+          mountPath: "/identityCfg.yaml"
+          subPath: "identityCfg.yaml"
           readOnly: true
       volumes:
       - name: identity-config

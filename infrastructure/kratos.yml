@@ -26,7 +26,7 @@ spec:
   selector:
     matchLabels:
       name: kratos
-  replicas: 3
+  replicas: 1
   template:
     metadata:
       labels:
@@ -34,7 +34,7 @@ spec:
     spec:
       containers:
       - name: kratos
-        image: ezdeploy/kratos:v0.6
+        image: ezdeploy/kratos:v0.7.1
         env:
         - name: MYSQL_HOST
           value: mysql
@@ -50,4 +50,4 @@ spec:
         resources:
           limits:
             cpu: 200m
-            memory: 2048Mi
+            memory: 20480Mi
