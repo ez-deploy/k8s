@@ -33,7 +33,7 @@ spec:
     spec:
       containers:
       - name: cluster
-        image: ezdeploy/cluster:v0.3
+        image: ezdeploy/cluster:v0.3.3
         ports:
         - name: service
           containerPort: 80
